@@ -2,11 +2,80 @@ const fs = require("fs");
 const path = require('path');
 const inquirer = require("inquirer");
 const generateMarkdown = require("./utils/generateMarkdown");
+const util = require("util");
+const year = new Date().getFullYear();
 
 // array of questions for user
-const questions = [
-
-];
+function promptUser() {
+    return inquirer.prompt([
+      {
+        type: "input",
+        name: "repoUrl",
+        message: "What is the repo URL for this project?"
+      },
+      {
+        type: "input",
+        name: "repoName",
+        message: "What is the name of this repo?"
+      },
+      {
+        type: "input",
+        name: "title",
+        message: "What is the title of this project?"
+      },
+      {
+        type: "input",
+        name: "description",
+        message: "How would you describe this project?"
+      },
+      {
+        type: "input",
+        name: "screenshot",
+        message: "What is the relative path to a screenshot of the application (If one folder up, type '../image.png')?"
+      },
+      {
+        type: "input",
+        name: "installationInstructions",
+        message: "What command(s) should be run in the terminal to install dependencies?"
+      },
+      {
+        type: "input",
+        name: "usageInformation",
+        message: "How do you start/use the application?"
+      },
+      {
+        type: "input",
+        name: "contributionGuidelines",
+        message: "Who contributed to the development of this application, if anyone?"
+      },
+      {
+        type: "input",
+        name: "testInstructions",
+        message: "What are the test instructions?"
+      },
+      {
+        type: "list",
+        name: "license",
+        message: "Which license is the application under?",
+        choices: ['GNU AGPv3', 'GNU GPLv3', 'GNU LGPLv3', 'Mozilla Public License 2.0', 'Apache License 2.0', 'MIT License', 'Boost Software License 1.0', 'The Unlicense']
+      },
+      {
+        type: "input",
+        name: "userName",
+        message: "Please enter your (real) name."
+      },
+      {
+        type: "input",
+        name: "githubUsername",
+        message: "Please enter your GitHub username."
+      },
+      {
+        type: "input",
+        name: "emailAddress",
+        message: "Please enter your email address."
+      }  
+    ]);
+}
 
 // function to write README file
 function writeToFile(fileName, data) {
